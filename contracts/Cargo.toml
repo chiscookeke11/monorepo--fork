@@ -4,4 +4,6 @@ members = [
   "rent_wallet",
   "rent_payments",
   "transaction-receipt-contract",
+  "staking_rewards",
+  "staking_pool",
 ]
