@@ -23,10 +23,7 @@ export async function apiFetch<T>(
   try {
     const res = await fetch(`${baseUrl}${path}`, {
       cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        ...(options?.headers || {}),
-      },
+      headers,
       ...options,
     });
 
