@@ -1,2 +1,2 @@
-export { type CustodialWalletService } from "./CustodialWalletService.js"
+export { type CustodialWalletService } from "./custodialWalletService.js"
 export { CustodialWalletServiceImpl } from "./CustodialWalletServiceImpl.js"

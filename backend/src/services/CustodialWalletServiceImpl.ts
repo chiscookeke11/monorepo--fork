@@ -1,9 +1,9 @@
 import { Keypair, Transaction, xdr } from "@stellar/stellar-sdk"
-import { CustodialWalletService } from "./CustodialWalletService.js"
+import { CustodialWalletService } from "./custodialWalletService.js"
 
 /**
  * Implementation of CustodialWalletService using Stellar SDK.
- * 
+ *
  * Security notes:
  * - Decrypted secret keys are only held in memory during signing
  * - Keys are never logged or exposed outside the service boundary
@@ -25,10 +25,10 @@ export class CustodialWalletServiceImpl implements CustodialWalletService {
 
   /**
    * Decrypts a secret key from its encrypted format.
-   * 
+   *
    * For now, this assumes the secret key is provided in Stellar secret key format (S...).
    * In production, this should decrypt from a secure storage format.
-   * 
+   *
    * @param encryptedSecretKey - The encrypted/encoded secret key
    * @returns The decrypted secret key string
    * @throws Error if decryption fails or key format is invalid
@@ -37,7 +37,7 @@ export class CustodialWalletServiceImpl implements CustodialWalletService {
     // TODO: Implement proper decryption based on your encryption scheme
     // For now, we assume the key is already in Stellar secret key format
     // In production, you would decrypt from your secure storage format here
-    
+
     // Validate that it looks like a Stellar secret key (starts with 'S')
     if (!encryptedSecretKey.startsWith("S")) {
       throw new Error("Invalid secret key format: must be a Stellar secret key (starts with 'S')")
@@ -46,13 +46,13 @@ export class CustodialWalletServiceImpl implements CustodialWalletService {
     // In a real implementation, you would decrypt here:
     // const decrypted = yourDecryptionFunction(encryptedSecretKey, decryptionKey)
     // For now, we assume it's already decrypted or needs minimal processing
-    
+
     return encryptedSecretKey
   }
 
   /**
    * Signs a Stellar/Soroban transaction XDR.
-   * 
+   *
    * @param encryptedSecretKey - The encrypted secret key
    * @param transactionXdr - The transaction XDR string to sign
    * @returns Object containing the signature and public key
