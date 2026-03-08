@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Badge } from "../ui/badge";
 import { Loader2, Wallet, Coins, AlertCircle } from "lucide-react";
 
 type StakingMode = "ngn_balance" | "usdc";
@@ -104,7 +103,7 @@ export default function StakingPage() {
       if (stakingMode === "ngn_balance") {
         setStatus("Converting NGN to USDC and staking...")
         const res = await stakeFromNgnBalance(amount)
-        
+
         if (res.status === "CONFIRMED") {
           setStatus(`Successfully staked ${res.amountUsdc || amount} USDC from ₦${amount.toLocaleString()}`)
           // Refresh NGN balance
@@ -116,7 +115,7 @@ export default function StakingPage() {
         } else {
           setStatus("Staking queued for processing")
         }
-        
+
         setStakeAmount("")
       } else {
         setStatus("Submitting stake transaction...")
