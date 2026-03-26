@@ -41,56 +41,65 @@ export function useRealtimeTransactions(options: UseRealtimeTransactionsOptions 
     fallbackPollInterval: 5000,
   })
 
-  // Update connection status
+  // Update connection status - use setTimeout to avoid synchronous setState
   useEffect(() => {
-    if (isConnecting) {
-      setConnectionStatus('connecting')
-    } else if (isConnected) {
-      setConnectionStatus('connected')
-    } else if (error) {
-      setConnectionStatus('error')
-    } else {
-      setConnectionStatus('disconnected')
-    }
-  }, [isConnected, isConnecting, error])
+    const timer = setTimeout(() => {
+      const newStatus = isConnecting ? 'connecting' : 
+                      isConnected ? 'connected' : 
+                      error ? 'error' : 'disconnected'
+      setConnectionStatus(newStatus)
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [isConnecting, isConnected, error])
 
-  // Handle incoming messages
+  // Handle incoming messages - use setTimeout to avoid synchronous setState
   useEffect(() => {
     if (!lastMessage) return
 
     if (lastMessage.type === 'transaction_status') {
       const transactionData = lastMessage.data as RealtimeTransaction
       
-      setTransactions(prev => {
-        const newMap = new Map(prev)
-        newMap.set(transactionData.id, transactionData)
-        return newMap
-      })
+      const timer = setTimeout(() => {
+        setTransactions(prev => {
+          const newMap = new Map(prev)
+          newMap.set(transactionData.id, transactionData)
+          return newMap
+        })
+      }, 0)
 
       // Call the callback if provided
       options.onStatusChange?.(transactionData)
+      
+      return () => clearTimeout(timer)
     }
-  }, [lastMessage, options.onStatusChange])
+  }, [lastMessage])
 
   // Subscribe to specific transactions
   useEffect(() => {
     if (!isConnected || !options.transactionIds?.length) return
 
     // Subscribe to transaction updates
-    send({
-      type: 'subscribe',
-      payload: {
-        transactions: options.transactionIds
-      }
-    })
+    const timer = setTimeout(() => {
+      send({
+        type: 'subscribe',
+        payload: {
+          transactions: options.transactionIds
+        }
+      })
+    }, 0)
+    
+    return () => clearTimeout(timer)
   }, [isConnected, options.transactionIds, send])
 
   // Handle errors
   useEffect(() => {
     if (error) {
-      options.onError?.(error)
+      const timer = setTimeout(() => {
+        options.onError?.(error)
+      }, 0)
+      return () => clearTimeout(timer)
     }
-  }, [error, options.onError])
+  }, [error])
 
   const getTransaction = (id: string): RealtimeTransaction | undefined => {
     return transactions.get(id)

@@ -185,12 +185,9 @@ export function useWebSocket(config: WebSocketConfig): WebSocketResult {
 
   // Initial connection
   useEffect(() => {
-    const timer = setTimeout(() => {
-      connect()
-    }, 0)
+    connect()
     
     return () => {
-      clearTimeout(timer)
       disconnect()
     }
   }, [connect, disconnect]) // Only run once on mount

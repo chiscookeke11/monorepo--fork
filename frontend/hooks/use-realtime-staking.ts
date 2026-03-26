@@ -50,20 +50,18 @@ export function useRealtimeStaking(options: UseRealtimeStakingOptions = {}) {
     fallbackPollInterval: 5000,
   })
 
-  // Update connection status
+  // Update connection status - use setTimeout to avoid synchronous setState
   useEffect(() => {
-    if (isConnecting) {
-      setConnectionStatus('connecting')
-    } else if (isConnected) {
-      setConnectionStatus('connected')
-    } else if (error) {
-      setConnectionStatus('error')
-    } else {
-      setConnectionStatus('disconnected')
-    }
-  }, [isConnected, isConnecting, error])
+    const timer = setTimeout(() => {
+      const newStatus = isConnecting ? 'connecting' : 
+                      isConnected ? 'connected' : 
+                      error ? 'error' : 'disconnected'
+      setConnectionStatus(newStatus)
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [isConnecting, isConnected, error])
 
-  // Handle incoming messages
+  // Handle incoming messages - use setTimeout to avoid synchronous setState
   useEffect(() => {
     if (!lastMessage) return
 
@@ -71,61 +69,72 @@ export function useRealtimeStaking(options: UseRealtimeStakingOptions = {}) {
       case 'staking_reward': {
         const rewardData = lastMessage.data as StakingRewardUpdate
         
-        setRewards(prev => {
-          const newMap = new Map(prev)
-          newMap.set(rewardData.positionId, rewardData)
-          return newMap
-        })
+        const timer = setTimeout(() => {
+          setRewards(prev => {
+            const newMap = new Map(prev)
+            newMap.set(rewardData.positionId, rewardData)
+            return newMap
+          })
+        }, 0)
 
         options.onRewardUpdate?.(rewardData)
-        break
+        return () => clearTimeout(timer)
       }
 
       case 'staking_position': {
         const positionData = lastMessage.data as StakingPositionUpdate
         
-        setPositions(prev => {
-          const newMap = new Map(prev)
-          const existingPosition = newMap.get(positionData.positionId)
-          
-          if (existingPosition) {
-            const updatedPosition: StakingPosition = {
-              ...existingPosition,
-              status: positionData.status,
-              rewards: positionData.rewards || existingPosition.rewards,
-              maturityDate: positionData.maturityDate || existingPosition.maturityDate,
+        const timer = setTimeout(() => {
+          setPositions(prev => {
+            const newMap = new Map(prev)
+            const existingPosition = newMap.get(positionData.positionId)
+            
+            if (existingPosition) {
+              const updatedPosition: StakingPosition = {
+                ...existingPosition,
+                status: positionData.status,
+                rewards: positionData.rewards || existingPosition.rewards,
+                maturityDate: positionData.maturityDate || existingPosition.maturityDate,
+              }
+              newMap.set(positionData.positionId, updatedPosition)
             }
-            newMap.set(positionData.positionId, updatedPosition)
-          }
-          
-          return newMap
-        })
+            
+            return newMap
+          })
+        }, 0)
 
         options.onPositionUpdate?.(positionData)
-        break
+        return () => clearTimeout(timer)
       }
     }
-  }, [lastMessage, options.onRewardUpdate, options.onPositionUpdate])
+  }, [lastMessage])
 
   // Subscribe to specific positions
   useEffect(() => {
     if (!isConnected || !options.positionIds?.length) return
 
-    // Subscribe to staking updates
-    send({
-      type: 'subscribe',
-      payload: {
-        staking: options.positionIds
-      }
-    })
+    const timer = setTimeout(() => {
+      // Subscribe to staking updates
+      send({
+        type: 'subscribe',
+        payload: {
+          staking: options.positionIds
+        }
+      })
+    }, 0)
+    
+    return () => clearTimeout(timer)
   }, [isConnected, options.positionIds, send])
 
   // Handle errors
   useEffect(() => {
     if (error) {
-      options.onError?.(error)
+      const timer = setTimeout(() => {
+        options.onError?.(error)
+      }, 0)
+      return () => clearTimeout(timer)
     }
-  }, [error, options.onError])
+  }, [error])
 
   const getPosition = (positionId: string): StakingPosition | undefined => {
     return positions.get(positionId)

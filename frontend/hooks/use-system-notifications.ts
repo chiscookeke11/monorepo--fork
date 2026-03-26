@@ -43,19 +43,21 @@ export function useSystemNotifications(options: UseSystemNotificationsOptions = 
     fallbackPollInterval: 5000,
   })
 
-  // Handle incoming messages
+  // Handle incoming messages - use setTimeout to avoid synchronous setState
   useEffect(() => {
     if (!lastMessage) return
 
     if (lastMessage.type === 'system_notification') {
       const notification = lastMessage.data as SystemNotification
       
-      setNotifications(prev => [notification, ...prev])
-      
-      // Update unread count
-      if (!notification.persistent) {
-        setUnreadCount(prev => prev + 1)
-      }
+      const timer = setTimeout(() => {
+        setNotifications(prev => [notification, ...prev])
+        
+        // Update unread count
+        if (!notification.persistent) {
+          setUnreadCount(prev => prev + 1)
+        }
+      }, 0)
 
       // Show toast notification if enabled
       if (options.showToast !== false) {
@@ -65,6 +67,8 @@ export function useSystemNotifications(options: UseSystemNotificationsOptions = 
           variant: notification.type === 'error' ? 'destructive' : 'default',
         })
       }
+      
+      return () => clearTimeout(timer)
     }
   }, [lastMessage, options.showToast])
 
@@ -72,21 +76,28 @@ export function useSystemNotifications(options: UseSystemNotificationsOptions = 
   useEffect(() => {
     if (!isConnected) return
 
-    // Subscribe to system notifications
-    send({
-      type: 'subscribe',
-      payload: {
-        notifications: true
-      }
-    })
+    const timer = setTimeout(() => {
+      // Subscribe to system notifications
+      send({
+        type: 'subscribe',
+        payload: {
+          notifications: true
+        }
+      })
+    }, 0)
+    
+    return () => clearTimeout(timer)
   }, [isConnected, send])
 
   // Handle errors
   useEffect(() => {
     if (error) {
-      options.onError?.(error)
+      const timer = setTimeout(() => {
+        options.onError?.(error)
+      }, 0)
+      return () => clearTimeout(timer)
     }
-  }, [error, options.onError])
+  }, [error])
 
   const markAsRead = (notificationId: string) => {
     setNotifications(prev => 
