@@ -351,6 +351,12 @@ export const allProperties = [
       listings: 3,
       responseTime: "Within 2 hours",
     },
+    whistleblower: {
+      name: "Ngozi Eze",
+      rating: 5,
+      reviews: 312,
+      bio: "Luxury lifestyle expert living in Banana Island - can provide insights about premium amenities and exclusive community",
+    },
   },
 ];
 
