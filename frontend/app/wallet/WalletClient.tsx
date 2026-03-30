@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useMemo, Suspense } from "react";
+import { useCallback, useEffect, useState, useMemo, useRef, Suspense } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
   AlertCircle,
@@ -45,6 +45,8 @@ import {
   type WalletLedgerType,
 } from "@/lib/walletApi";
 import { useRiskState } from "@/hooks/useRiskState";
+import { useRealtimeTransactions, type RealtimeTransaction } from "@/hooks/use-realtime-transactions";
+import { toast } from "@/hooks/use-toast";
 import FrozenAccountBanner from "@/components/FrozenAccountBanner";
 
 // Constants
@@ -80,6 +82,13 @@ const FILTER_GROUPS = [
 ] as const;
 
 type FilterGroupId = (typeof FILTER_GROUPS)[number]["id"];
+
+function normalizeRealtimeStatus(status: string): WalletLedgerEntry["status"] {
+  if (status === "completed") return "confirmed";
+  if (status === "queued") return "pending";
+  if (status === "confirmed" || status === "failed" || status === "pending") return status;
+  return "pending";
+}
 
 type LoadState<T> =
   | { type: "loading" }
@@ -194,6 +203,76 @@ function WalletPageContent() {
   );
   const hasActiveFilters = activeFilters.length > 0;
 
+  const subscribedTransactionIds = useMemo(() => {
+    if (ledgerState.type !== "success") return [];
+    return ledgerState.data.entries.map((entry) => entry.id);
+  }, [ledgerState]);
+
+  const lastKnownStatusesRef = useRef<Record<string, WalletLedgerEntry["status"]>>({});
+
+  const handleRealtimeStatusChange = useCallback((update: RealtimeTransaction) => {
+    const normalizedStatus = normalizeRealtimeStatus(update.status);
+
+    setLedgerState((previous) => {
+      if (previous.type !== "success") return previous;
+
+      let changed = false;
+      const updatedEntries = previous.data.entries.map((entry) => {
+        const matchesUpdate =
+          entry.id === update.id ||
+          (update.outboxId != null && entry.reference === update.outboxId) ||
+          (update.txId != null && entry.reference === update.txId);
+
+        if (!matchesUpdate || entry.status === normalizedStatus) return entry;
+
+        changed = true;
+        return {
+          ...entry,
+          status: normalizedStatus,
+          timestamp: update.timestamp || entry.timestamp,
+        };
+      });
+
+      if (!changed) return previous;
+
+      return {
+        type: "success",
+        data: {
+          ...previous.data,
+          entries: updatedEntries,
+        },
+      };
+    });
+
+    if (lastKnownStatusesRef.current[update.id] === normalizedStatus) {
+      return;
+    }
+
+    toast({
+      title: "Transaction status updated",
+      description: update.message || `Transaction ${update.id.slice(0, 8)} is now ${normalizedStatus}.`,
+      variant: normalizedStatus === "failed" ? "destructive" : "default",
+    });
+
+    lastKnownStatusesRef.current = {
+      ...lastKnownStatusesRef.current,
+      [update.id]: normalizedStatus,
+    };
+  }, []);
+
+  const handleRealtimeError = useCallback((error: Error) => {
+    toast({
+      title: "Realtime updates interrupted",
+      description: `${error.message}. Retrying connection automatically.`,
+      variant: "destructive",
+    });
+  }, []);
+
+  const { connectionStatus: realtimeConnectionStatus } = useRealtimeTransactions({
+    transactionIds: subscribedTransactionIds,
+    onStatusChange: handleRealtimeStatusChange,
+    onError: handleRealtimeError,
+  });
 
   // Retry function
   const retry = useCallback(() => {
@@ -244,7 +323,7 @@ function WalletPageContent() {
     };
 
 
-  }, [selectedTypes]);
+  }, [selectedTypes, reloadNonce]);
 
   // Load more entries
   const loadMore = useCallback(async () => {
@@ -482,6 +561,12 @@ function WalletPageContent() {
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <h2 className="text-lg font-bold md:text-xl">Activity</h2>
+              <Badge
+                variant={realtimeConnectionStatus === "connected" ? "secondary" : realtimeConnectionStatus === "error" ? "destructive" : "outline"}
+                className="text-[10px] uppercase tracking-wide"
+              >
+                Realtime: {realtimeConnectionStatus}
+              </Badge>
               {/* Mobile Filter Toggle */}
               <Button
                 variant="outline"
