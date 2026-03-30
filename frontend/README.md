@@ -13,3 +13,8 @@ npm run dev
 
 - This frontend is currently UI-first and uses mock data under `lib/mockData/`.
 - Backend integration should be centralized under `lib/` (avoid scattering raw `fetch` calls in components).
+
+## Design System Showcase
+
+- Open `/design-system` in dev to view the component showcase page.
+- It demonstrates responsive breakpoints, theme tokens, and button variants (`primary`, `secondary`, `outline`, `ghost`).

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Home } from "lucide-react"
 import BackendHealthCompact from "@/components/BackendHealthCompact"
 import { MobileMenu } from "@/components/ui/mobile-menu"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const navLinks = [
   { href: "/properties", label: "Find a Home" },
@@ -52,6 +53,7 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle />
             <div className="hidden xl:block">
               <BackendHealthCompact />
             </div>
