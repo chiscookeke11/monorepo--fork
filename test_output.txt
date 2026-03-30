@@ -1,0 +1,785 @@
+﻿cargo : warning: 
+unused import: 
+`TimelockError`
+At line:1 char:1
++ cargo test 
+--workspace 
+--all-targets 
+--all-features -- 
+--test-threads ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (warning: u   
+ nused import: `Ti    
+melockError`:Stri    
+ng) [], RemoteExc    
+eption
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+ --> timelock\src\inte
+gration_test.rs:3:43
+  |
+3 | ...t, 
+TimelockError};
+  |       
+^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unus
+ed_imports)]` on by 
+default
+
+warning: unused 
+variable: 
+`target_client`
+  --> timelock\src\int
+egration_test.rs:41:13
+   |
+41 | ...et 
+target_client = ...
+   |       
+^^^^^^^^^^^^^ help: 
+if this is 
+intentional, prefix 
+it with an 
+underscore: 
+`_target_client`
+   |
+   = note: `#[warn(unu
+sed_variables)]` on 
+by default
+
+warning: unused 
+variable: `tx_hash`
+  --> timelock\src\tes
+t.rs:57:13
+   |
+57 | ...et tx_hash = 
+...
+   |       ^^^^^^^ 
+help: if this is 
+intentional, prefix 
+it with an 
+underscore: `_tx_hash`
+
+warning: unused 
+variable: 
+`exec_result`
+  --> timelock\src\tes
+t.rs:69:13
+   |
+69 | ...et 
+exec_result = ...
+   |       
+^^^^^^^^^^^ help: if 
+this is intentional, 
+prefix it with an 
+underscore: 
+`_exec_result`
+
+warning: `timelock` 
+(lib test) generated 
+4 warnings (run 
+`cargo fix --lib -p 
+timelock --tests` to 
+apply 1 suggestion)
+warning: associated 
+function `is_paused` 
+is never used
+   --> deal_escrow\src
+\lib.rs:501:8
+    |
+325 | impl DealEscrow 
+{
+    | --------------- 
+associated function 
+in this implementation
+...
+501 |     fn 
+is_paused(en...
+    |        ^^^^^^^^^
+    |
+    = note: 
+`#[warn(dead_code)]` 
+on by default
+
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+  --> rent_wallet\src\
+lib.rs:11:7
+   |
+11 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected 
+names are: `docsrs`, 
+`feature`, and `test` 
+and 31 more
+   = help: consider 
+using a Cargo feature 
+instead
+   = help: or 
+consider adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+            
+[lints.rust]
+            
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+   = help: or 
+consider adding `print
+ln!("cargo::rustc-chec
+k-cfg=cfg(kani)");` 
+to the top of the 
+`build.rs`
+   = note: see <https:
+//doc.rust-lang.org/ni
+ghtly/rustc/check-cfg/
+cargo-specifics.html> 
+for more information 
+about checking 
+conditional 
+configuration
+   = note: `#[warn(une
+xpected_cfgs)]` on by 
+default
+
+warning: 
+`deal_escrow` (lib 
+test) generated 1 
+warning
+warning: 
+`rent_wallet` (lib 
+test) generated 1 
+warning
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+ --> staking_rewards\s
+rc\lib.rs:7:7
+  |
+7 | #[cfg(kani)]
+  |       ^^^^
+  |
+  = help: expected 
+names are: `docsrs`, 
+`feature`, and `test` 
+and 31 more
+  = help: consider 
+using a Cargo feature 
+instead
+  = help: or consider 
+adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+           
+[lints.rust]
+           
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+  = help: or consider 
+adding `println!("carg
+o::rustc-check-cfg=cfg
+(kani)");` to the top 
+of the `build.rs`
+  = note: see <https:/
+/doc.rust-lang.org/nig
+htly/rustc/check-cfg/c
+argo-specifics.html> 
+for more information 
+about checking 
+conditional 
+configuration
+  = note: `#[warn(unex
+pected_cfgs)]` on by 
+default
+
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+ --> staking_rewards\s
+rc\formal_properties.r
+s:8:16
+  |
+8 | ...ttr(kani, ka...
+  |        ^^^^
+  |
+  = help: consider 
+using a Cargo feature 
+instead
+  = help: or consider 
+adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+           
+[lints.rust]
+           
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+  = help: or consider 
+adding `println!("carg
+o::rustc-check-cfg=cfg
+(kani)");` to the top 
+of the `build.rs`
+  = note: see <https:/
+/doc.rust-lang.org/nig
+htly/rustc/check-cfg/c
+argo-specifics.html> 
+for more information 
+about checking 
+conditional 
+configuration
+
+warning: unused 
+imports: 
+`MockAuthInvoke` and 
+`MockAuth`
+   --> staking_rewards
+\src\lib.rs:593:48
+    |
+593 | ..._, MockAuth, 
+MockAuthInvoke};
+    |       ^^^^^^^^  
+^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(un
+used_imports)]` on by 
+default
+
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+  --> staking_pool\src
+\lib.rs:19:7
+   |
+19 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected 
+names are: `docsrs`, 
+`feature`, and `test` 
+and 31 more
+   = help: consider 
+using a Cargo feature 
+instead
+   = help: or 
+consider adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+            
+[lints.rust]
+            
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+   = help: or 
+consider adding `print
+ln!("cargo::rustc-chec
+k-cfg=cfg(kani)");` 
+to the top of the 
+`build.rs`
+   = note: see <https:
+//doc.rust-lang.org/ni
+ghtly/rustc/check-cfg/
+cargo-specifics.html> 
+for more information 
+about checking 
+conditional 
+configuration
+   = note: `#[warn(une
+xpected_cfgs)]` on by 
+default
+
+warning: 
+`staking_rewards` 
+(lib test) generated 
+3 warnings (run 
+`cargo fix --lib -p 
+staking_rewards 
+--tests` to apply 1 
+suggestion)
+warning: 
+`staking_pool` (lib 
+test) generated 1 
+warning
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+  --> transaction-rece
+ipt-contract\src\lib.r
+s:18:7
+   |
+18 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected 
+names are: `docsrs`, 
+`feature`, and `test` 
+and 31 more
+   = help: consider 
+using a Cargo feature 
+instead
+   = help: or 
+consider adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+            
+[lints.rust]
+            
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+   = help: or 
+consider adding `print
+ln!("cargo::rustc-chec
+k-cfg=cfg(kani)");` 
+to the top of the 
+`build.rs`
+   = note: see <https:
+//doc.rust-lang.org/ni
+ghtly/rustc/check-cfg/
+cargo-specifics.html> 
+for more information 
+about checking 
+conditional 
+configuration
+   = note: `#[warn(une
+xpected_cfgs)]` on by 
+default
+
+warning: unexpected 
+`cfg` condition name: 
+`kani`
+   --> transaction-rec
+eipt-contract\src\lib.
+rs:281:7
+    |
+281 | #[cfg(kani)]
+    |       ^^^^
+    |
+    = help: consider 
+using a Cargo feature 
+instead
+    = help: or 
+consider adding in 
+`Cargo.toml` the 
+`check-cfg` lint 
+config for the lint:
+             
+[lints.rust]
+             
+unexpected_cfgs = { 
+level = "warn", 
+check-cfg = 
+['cfg(kani)'] }
+    = help: or 
+consider adding `print
+ln!("cargo::rustc-chec
+k-cfg=cfg(kani)");` 
+to the top of the 
+`build.rs`
+    = note: see <https
+://doc.rust-lang.org/n
+ightly/rustc/check-cfg
+/cargo-specifics.html>
+ for more information 
+about checking 
+conditional 
+configuration
+
+warning: `transaction-
+receipt-contract` 
+(lib test) generated 
+2 warnings
+    Finished `test` 
+profile [unoptimized 
++ debuginfo] 
+target(s) in 1.00s
+     Running 
+unittests src\lib.rs (
+target\debug\deps\cont
+ract_access-a1a4a8086b
+aaa895.exe)
+
+running 10 tests
+test tests::admin_has_all_permissions ... ok
+test tests::auditor_can_only_read ... ok
+test tests::cannot_revoke_last_admin ... ok
+test tests::double_init_fails ... ok
+test tests::init_sets_admin_role ... ok
+test tests::list_roles_returns_all_assigned ... ok
+test tests::require_permission_fails_for_unauthorized ... ok
+test tests::require_permission_passes_for_admin ... ok
+test tests::unassigned_address_has_no_permissions ... ok
+test tests::user_role_permissions ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\deal
+_escrow-23ee4e2b2fa1fd
+94.exe)
+
+running 9 tests
+test test::cancel_upgrade_clears_pending ... ok
+test test::deposit_transfers_tokens_in_and_updates_balance ... ok
+test test::execute_upgrade_fails_when_delay_not_met ... ok
+test test::init_cannot_be_called_twice ... ok
+test test::init_sets_version_to_one ... ok
+test test::paused_blocks_operations ... ok
+test test::propose_upgrade_stores_pending ... ok
+test test::release_transfers_out_full_balance_and_cannot_exceed ... ok
+test test::unauthorized_release_rejected ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.86s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\mvp_
+staking_pool-3f6158a24
+2eecb6a.exe)
+
+running 27 tests
+test reward_math_invariants::invariant_claim_is_idempotent_after_first_claim ... ok
+test reward_math_invariants::invariant_equal_stakers_receive_equal_rewards ... ok
+test reward_math_invariants::invariant_large_amounts_do_not_overflow ... ok
+test reward_math_invariants::invariant_late_staker_earns_no_pre_stake_rewards ... ok
+test reward_math_invariants::invariant_non_staker_claimable_is_always_zero ... ok
+test reward_math_invariants::invariant_reward_proportional_to_stake_ratio ... ok
+test reward_math_invariants::invariant_small_stake_accrues_nonzero_reward_when_sole_staker ... ok
+test reward_math_invariants::invariant_sole_staker_receives_all_rewards ... ok
+test test::admin_can_pause_and_unpause ... ok
+test test::init_cannot_be_called_twice - should panic ... ok
+test test::init_sets_admin_and_token ... ok
+test test::multiple_users_can_stake_independently ... ok
+test test::non_admin_cannot_pause - should panic ... ok
+test test::rewards_accrue_and_can_be_claimed_without_iteration ... ok
+test test::stake_and_unstake_work_correctly ... ok
+test test::stake_emits_event_with_standardized_topic ... ok
+test test::stake_fails_when_paused - should panic ... ok
+test test::stake_fails_with_negative_amount - should panic ... ok
+test test::stake_fails_with_zero_amount - should panic ... ok
+test test::staked_balance_returns_zero_for_new_user ... ok
+test test::total_staked_returns_zero_initially ... ok
+test test::unstake_emits_event_with_standardized_topic ... ok
+test test::unstake_fails_when_paused - should panic ... ok
+test test::unstake_fails_when_unstaking_more_than_staked - should panic ... ok
+test test::unstake_fails_with_insufficient_balance - should panic ... ok
+test test::unstake_fails_with_negative_amount - should panic ... ok
+test test::unstake_fails_with_zero_amount - should panic ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.12s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\rent
+_payments-3539f383f9e4
+f1be.exe)
+
+running 21 tests
+test test::create_receipt_fails_with_negative_amount ... ok
+test test::create_receipt_fails_with_zero_amount ... ok
+test test::create_receipt_fails_without_admin_auth - should panic ... ok
+test test::init_cannot_be_called_twice ... ok
+test test::init_sets_version_to_one ... ok
+test test::receipt_created_event_includes_schema_version_one ... ok
+test test::test_create_receipt_maximum_amount ... ok
+test test::test_create_receipt_state_update_ordering ... ok
+test test::test_list_receipts_by_deal_different_deals ... ok
+test test::test_list_receipts_by_deal_empty ... ok
+test test::test_list_receipts_by_deal_invalid_limit_too_large ... ok
+test test::test_list_receipts_by_deal_invalid_limit_zero ... ok
+test test::test_list_receipts_by_deal_no_skipping ... ok
+test test::test_list_receipts_by_deal_pagination ... ok
+test test::test_list_receipts_by_deal_same_timestamp ... ok
+test test::test_list_receipts_by_deal_single_page ... ok
+test test::test_list_receipts_by_deal_stable_ordering ... ok
+test test::test_multiple_receipts_state_consistency ... ok
+test test::test_pause - should panic ... ok
+test test::test_receipt_isolation_between_deals ... ok
+test test::version_matches_contract_version ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.94s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\rent
+_wallet-add6bc77f81eea
+63.exe)
+
+running 40 tests
+test test::admin_can_pause_and_unpause ... ok
+test test::balance_reflects_credit_and_debit_operations ... ok
+test test::balance_returns_zero_for_new_user ... ok
+test test::cancel_upgrade_clears_pending ... ok
+test test::cancel_upgrade_fails_with_no_pending ... ok
+test test::credit_accumulates_balance ... ok
+test test::credit_fails_when_paused ... ok
+test test::credit_fails_with_negative_amount ... ok
+test test::credit_fails_with_zero_amount ... ok
+test test::credit_increases_balance ... ok
+test test::debit_can_reduce_balance_to_zero ... ok
+test test::debit_decreases_balance ... ok
+test test::debit_fails_when_balance_is_zero ... ok
+test test::debit_fails_with_insufficient_balance ... ok
+test test::debit_fails_with_negative_amount ... ok
+test test::debit_fails_with_zero_amount ... ok
+test test::execute_upgrade_fails_when_delay_not_met ... ok
+test test::execute_upgrade_fails_with_no_pending ... ok
+test test::init_cannot_be_called_twice ... ok
+test test::init_initializes_empty_balances ... ok
+test test::init_sets_admin ... ok
+test test::invariant_balance_never_negative_after_failed_debit ... ok
+test test::non_admin_cannot_pause ... ok
+test test::non_admin_cannot_unpause ... ok
+test test::paused_contract_blocks_credit_and_debit ... ok
+test test::propose_upgrade_fails_if_already_pending ... ok
+test test::propose_upgrade_stores_pending_hash ... ok
+test test::version_matches_contract_version ... ok
+test validation::tests::amount_above_max_rejected ... ok
+test validation::tests::distinct_addresses_pass ... ok
+test validation::tests::empty_string_rejected ... ok
+test validation::tests::excessive_time_value_rejected ... ok
+test validation::tests::negative_amount_rejected ... ok
+test validation::tests::same_address_rejected ... ok
+test validation::tests::string_at_max_length_passes ... ok
+test validation::tests::string_over_max_length_rejected ... ok
+test validation::tests::valid_amount_passes ... ok
+test validation::tests::valid_string_passes ... ok
+test validation::tests::valid_time_values_pass ... ok
+test validation::tests::zero_amount_rejected ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.29s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\soro
+ban_pausable-bb0e2cd85
+6a80bc2.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\stak
+ing_pool-3d1c2bd5247b7
+5c2.exe)
+
+running 50 tests
+test stress_tests::tests::stress_budget_within_limits ... ok
+test stress_tests::tests::stress_full_drain_to_zero ... ok
+test stress_tests::tests::stress_interleaved_stake_unstake ... ok
+test stress_tests::tests::stress_lock_period_under_load ... ok
+test stress_tests::tests::stress_many_users_stake ... ok
+test stress_tests::tests::stress_pause_under_load ... ok
+test test::admin_can_pause_and_unpause ... ok
+test test::admin_can_set_lock_period ... ok
+test test::admin_can_set_operator_and_query ... ok
+test test::get_lock_period_returns_zero_initially ... ok
+test test::init_cannot_be_called_twice ... ok
+test test::init_emits_event ... ok
+test test::init_sets_admin_and_token ... ok
+test test::is_paused_returns_false_initially ... ok
+test test::new_stake_resets_lock_timer ... ok
+test test::non_admin_cannot_pause ... ok
+test test::non_admin_cannot_set_lock_period ... ok
+test test::non_admin_cannot_set_operator ... ok
+test test::operator_can_authorize_stake_and_unstake_calls ... ok
+test test::operator_stake_fails_when_paused ... ok
+test test::pause_emits_event ... ok
+test test::set_lock_period_emits_event ... ok
+test test::stake_fails_when_paused ... ok
+test test::stake_fails_with_negative_amount ... ok
+test test::stake_fails_with_zero_amount ... ok
+test test::staked_balance_returns_zero_for_new_user ... ok
+test test::test_balance_isolation ... ok
+test test::test_compute_metadata_hash_basic_stake ... ok
+test test::test_compute_metadata_hash_with_optional_fields ... ok
+test test::test_golden_vector_1_basic_stake ... ok
+test test::test_golden_vector_2_with_metadata ... ok
+test test::test_metadata_hash_deterministic_same_input ... ok
+test test::test_metadata_hash_different_inputs_produce_different_hashes ... ok
+test test::test_metadata_hash_rejects_negative_amount ... ok
+test test::test_metadata_hash_rejects_zero_amount ... ok
+test test::test_negative_amount_rejection ... ok
+test test::test_pause_authorization ... ok
+test test::test_pause_blocks_staking ... ok
+test test::test_stake_authorization ... ok
+test test::test_unstake_authorization ... ok
+test test::test_verify_metadata_hash_failure ... ok
+test test::test_verify_metadata_hash_success ... ok
+test test::test_zero_amount_rejection ... ok
+test test::unpause_emits_event ... ok
+test test::unstake_fails_when_paused ... ok
+test test::unstake_fails_with_negative_amount ... ok
+test test::unstake_fails_with_zero_amount ... ok
+test test::unstake_succeeds_after_lock_period ... ok
+test test::unstake_succeeds_with_zero_lock_period ... ok
+test test::version_matches_contract_version ... ok
+
+test result: ok. 50 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 11.82s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\stak
+ing_rewards-13e5d7829a
+384315.exe)
+
+running 14 tests
+test formal_properties::formal_properties::invariant_rewards_non_negative ... ok
+test test::admin_can_add_operator ... ok
+test test::admin_can_remove_operator ... ok
+test test::admin_can_set_admin ... ok
+test test::non_admin_cannot_add_operator - should panic ... ok
+test test::non_admin_cannot_remove_operator - should panic ... ok
+test test::non_operator_cannot_fund_rewards - should panic ... ok
+test test::old_admin_loses_permissions - should panic ... ok
+test test::operator_can_fund_rewards ... ok
+test test::removed_operator_cannot_fund_rewards - should panic ... ok
+test test::test_claim_does_not_affect_others ... ok
+test test::test_rewards_distributed_fairly ... ok
+test test::test_two_users_different_times ... ok
+test test::version_matches_contract_version ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\time
+lock-dc7b43beada0fb63.
+exe)
+
+running 4 tests
+test integration_test::integration_test::test_integration_timelock_executes_on_target ... ok
+test test::test::test_emergency_pause ... ok
+test test::test::test_init ... ok
+test test::test::test_queue_and_execute ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\tran
+saction_receipt_contra
+ct-17136c994f660cce.ex
+e)
+
+running 51 tests
+test integration_tests::test_integration_authorization_flow ... ok
+test integration_tests::test_integration_deal_queries_and_pagination ... ok
+test integration_tests::test_integration_init_record_query ... ok
+test integration_tests::test_integration_invalid_tx_type_rejected ... ok
+test integration_tests::test_integration_pause_flow ... ok
+test test::test_allowed_sources_constant ... ok
+test test::test_allowed_tx_types_constant ... ok
+test test::test_contract_error_codes ... ok
+test test::test_conversion_idempotency ... ok
+test test::test_conversion_receipt_with_metadata ... ok
+test test::test_event_vector_init_event_exact_shape ... ok
+test test::test_event_vector_receipt_recorded_exact_shape ... ok
+test test::test_generate_tx_id_all_allowed_sources ... ok
+test test::test_generate_tx_id_deterministic ... ok
+test test::test_generate_tx_id_different_references_different_hashes ... ok
+test test::test_generate_tx_id_different_sources_different_hashes ... ok
+test test::test_generate_tx_id_empty_reference ... ok
+test test::test_generate_tx_id_golden_vector_v1 ... ok
+test test::test_generate_tx_id_invalid_source ... ok
+test test::test_generate_tx_id_reference_case_sensitive ... ok
+test test::test_generate_tx_id_reference_exactly_256_chars ... ok
+test test::test_generate_tx_id_reference_too_long ... ok
+test test::test_generate_tx_id_reference_with_pipe ... ok
+test test::test_generate_tx_id_source_case_insensitive ... ok
+test test::test_generate_tx_id_trimming ... ok
+test test::test_generate_tx_id_valid_input ... ok
+test test::test_generate_tx_id_whitespace_only_reference ... ok
+test test::test_golden_vectors ... ok
+test test::test_init_already_initialized ... ok
+test test::test_init_success ... ok
+test test::test_init_with_same_admin_and_operator ... ok
+test test::test_invalid_input_does_not_emit_event ... ok
+test test::test_list_receipts_by_user ... ok
+test test::test_metadata_hash_golden_vector_v1 ... ok
+test test::test_metadata_hash_invalid_length_rejected_at_type_boundary ... ok
+test test::test_metadata_hash_invalid_rejected ... ok
+test test::test_metadata_hash_optional_none_is_accepted ... ok
+test test::test_pause_idempotent ... ok
+test test::test_pause_not_authorized ... ok
+test test::test_pause_success ... ok
+test test::test_pause_unpause_cycle ... ok
+test test::test_receipt_struct_creation ... ok
+test test::test_record_receipt_duplicate_transaction_rejected ... ok
+test test::test_record_receipt_external_ref_too_long_rejected ... ok
+test test::test_storage_key_variants ... ok
+test test::test_unpause_idempotent ... ok
+test test::test_unpause_not_authorized ... ok
+test test::test_unpause_success ... ok
+test test::test_validate_tx_type_invalid_types ... ok
+test test::test_validate_tx_type_valid_types ... ok
+test test::test_version_matches_contract_version ... ok
+
+test result: ok. 51 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.18s
+
+     Running 
+unittests src\lib.rs (
+target\debug\deps\whis
+tleblower_rewards-51f5
+e946ed9bd4cf.exe)
+
+running 7 tests
+test test::claim_flow_and_no_double_claim ... ok
+test test::events_emitted ... ok
+test test::init_sets_fields ... FAILED
+test test::multiple_allocations_and_partial_claims ... ok
+test test::only_operator_allocates ... ok
+test test::only_whistleblower_claims_their_own ... ok
+test test::pause_blocks_allocate_and_claim ... FAILED
+
+failures:
+
+---- test::init_sets_fields stdout ----
+
+thread 'test::init_sets_fields' panicked at whistleblower_rewards\src\lib.rs:532:34:
+called `Result::unwrap()` on an `Err` value: Err(Abort)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Writing test snapshot file for test "test::init_sets_fields" to "test_snapshots\\test\\init_sets_fields.1.json".
+
+---- test::pause_blocks_allocate_and_claim stdout ----
+
+thread 'test::pause_blocks_allocate_and_claim' panicked at whistleblower_rewards\src\lib.rs:741:34:
+called `Result::unwrap()` on an `Err` value: Err(Abort)
+Writing test snapshot file for test "test::pause_blocks_allocate_and_claim" to "test_snapshots\\test\\pause_blocks_allocate_and_claim.1.json".
+
+
+failures:
+    test::init_sets_fields
+    test::pause_blocks_allocate_and_claim
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.79s
+
+error: test failed, 
+to rerun pass `-p 
+whistleblower_rewards 
+--lib`
