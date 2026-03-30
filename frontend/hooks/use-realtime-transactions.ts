@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useWebSocket, type WebSocketMessage } from './use-websocket'
+import { useWebSocket } from './use-websocket'
 import type { TransactionStatus } from '@/components/transaction/TransactionStatusPanel'
+import { walletAuthManager } from '@/lib/wallet-auth'
 
 export interface RealtimeTransaction {
   id: string
@@ -15,18 +16,30 @@ export interface UseRealtimeTransactionsOptions {
   transactionIds?: string[]
   onStatusChange?: (transaction: RealtimeTransaction) => void
   onError?: (error: Error) => void
+  authToken?: string
 }
 
 export function useRealtimeTransactions(options: UseRealtimeTransactionsOptions = {}) {
-  const { transactionIds, onStatusChange, onError } = options
+  const { transactionIds, onStatusChange, onError, authToken } = options
   const [transactions, setTransactions] = useState<Map<string, RealtimeTransaction>>(new Map())
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'error'>('disconnected')
 
   // Get WebSocket URL from environment or use default
-  const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 
+  const baseWsUrl = process.env.NEXT_PUBLIC_WS_URL || 
     (typeof window !== 'undefined' && window.location.protocol === 'https:' 
       ? `wss://${window.location.host}/ws` 
       : `ws://${window.location.host}/ws`)
+
+  const resolvedAuthToken = authToken || walletAuthManager.getAuthToken() || undefined
+  const wsUrl = (() => {
+    if (!resolvedAuthToken) return baseWsUrl
+
+    const url = new URL(baseWsUrl, typeof window !== 'undefined' ? window.location.origin : 'http://localhost')
+    if (!url.searchParams.has('token')) {
+      url.searchParams.set('token', resolvedAuthToken)
+    }
+    return url.toString()
+  })()
 
   const { 
     isConnected, 
