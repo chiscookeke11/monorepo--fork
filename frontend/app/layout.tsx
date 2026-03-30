@@ -5,8 +5,9 @@ import { Footer } from '@/components/footer'
 import { Toaster } from '@/components/ui/toaster'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { NetworkStatusBanner } from '@/components/network-status-banner'
+import { ServiceWorkerRegister } from '@/components/service-worker-register'
 import { WebVitalsReporter } from '@/components/web-vitals-reporter'
-import { ThemeProvider } from '@/components/theme-provider'
+import { PerformanceMonitor } from '@/components/PerformanceMonitor'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -27,16 +28,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ErrorBoundary>
-            <WebVitalsReporter />
-            <NetworkStatusBanner />
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </ErrorBoundary>
-        </ThemeProvider>
+        <ErrorBoundary>
+          <ServiceWorkerRegister />
+          <WebVitalsReporter />
+          <PerformanceMonitor />
+          <NetworkStatusBanner />
+          <Header />
+          {children}
+          <Footer />
+          <Toaster />
+        </ErrorBoundary>
       </body>
     </html>
   )
