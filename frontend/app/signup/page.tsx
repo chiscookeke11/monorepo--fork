@@ -8,7 +8,11 @@ import { Input } from "@/components/ui/input";
 import { StellarWalletConnect } from "@/components/wallet/StellarWalletConnect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { useRouter } from "next/navigation";
+import { requestOtp } from "@/lib/authApi";
+
 export default function SignupPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [userType, setUserType] = useState<"tenant" | "landlord">("tenant");
   const [formData, setFormData] = useState({
@@ -18,9 +22,19 @@ export default function SignupPage() {
     password: "",
   });
 
-  const handleSubmit: React.ComponentProps<'form'>['onSubmit'] = (e) => {
+  const handleSubmit: React.ComponentProps<'form'>['onSubmit'] = async (e) => {
     e.preventDefault();
-    // Handle signup
+    
+    try {
+      // Request OTP for the email - this will create the user when verified
+      await requestOtp(formData.email);
+      
+      // Redirect to OTP verification page with the email
+      router.push(`/verify-otp?email=${encodeURIComponent(formData.email)}`);
+    } catch (error) {
+      console.error("Failed to request OTP:", error);
+      // You could add error handling here (show toast, etc.)
+    }
   };
 
   const updateFormData = (field: string, value: string) => {
@@ -38,7 +52,7 @@ export default function SignupPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="/" className="inline-block font-mono text-3xl font-black">
-            SHELTA<span className="text-primary">FLEX</span>
+            SHELTER<span className="text-primary">FLEX</span>
           </Link>
           <p className="mt-2 text-muted-foreground">
             Create your account to get started.

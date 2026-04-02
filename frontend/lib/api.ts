@@ -1,7 +1,7 @@
 import type { BackendErrorResponse } from './errors'
 import { enqueueOfflineRequest } from './offline-queue'
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
 
 export const ACCOUNT_FROZEN_MESSAGE =
   "Account frozen due to negative balance. Please top up to continue.";
@@ -76,7 +76,7 @@ export async function apiFetch<T>(
 
   const token =
     typeof window !== "undefined"
-      ? localStorage.getItem("sheltaflex_token")
+      ? localStorage.getItem("shelterflex_token")
       : null;
 
   const headers: HeadersInit = {
